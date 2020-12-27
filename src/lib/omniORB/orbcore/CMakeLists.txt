@@ -191,6 +191,9 @@ target_include_directories(omniORB4_static
         $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4_static RunGenerator)
+if (WIN32)
+    set_target_properties(omniORB4_static PROPERTIES OUTPUT_NAME "omniORB4")
+endif()
 
 
 add_library(omniORB4 SHARED ${ORB_SRCS})
@@ -207,6 +210,9 @@ target_include_directories(omniORB4
         $<INSTALL_INTERFACE:include>)
 target_compile_options(omniORB4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} ${COMPILE_FLAG_FPERMISSIVE} ${COMPILE_FLAG_WNO_WRITE_STRINGS})
 add_dependencies(omniORB4 RunGenerator)
+if (WIN32)
+    set_target_properties(omniORB4 PROPERTIES OUTPUT_NAME "omniORB4_rt")
+endif()
 
 
 install(TARGETS omniORB4_static omniORB4
