@@ -5,3 +5,8 @@ target_link_libraries(catior PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(catior PRIVATE  )
 target_include_directories(catior PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(catior PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
+
+install(TARGETS catior
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static})
