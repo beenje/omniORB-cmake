@@ -14,16 +14,16 @@ To add a new release:
 
 - Download and commit the new omniORB release:
 
- ```
- git checkout 4_2
- git rm -rf *
- tar xfj ../omniORB-4.2.x.tar.bz2
- mv omniORB-4.2.x/* .
- rmdir omniORB-4.2.x
- git add .
- git commit -m "omniORB 4.2.x"
- git tag -a 4.2.x
- ```
+  ```
+  git checkout 4_2
+  git rm -rf *
+  tar xfj ../omniORB-4.2.x.tar.bz2
+  mv omniORB-4.2.x/* .
+  rmdir omniORB-4.2.x
+  git add .
+  git commit -m "omniORB 4.2.x"
+  git tag -a 4.2.x
+  ```
 
 - Merge the changes in the **4_2_cmake** branch:
 
