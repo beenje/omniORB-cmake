@@ -16,19 +16,25 @@ if (ZLIB_FOUND)
     target_include_directories(omniZIOP4_static PRIVATE ${ZLIB_INCLUDE_DIR}  .)
     target_compile_definitions(omniZIOP4_static PRIVATE _OMNIORB_ZIOP_LIBRARY)
     target_compile_options(omniZIOP4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+    if (WIN32)
+        set_target_properties(omniZIOP4_static PROPERTIES OUTPUT_NAME "omniZIOP4")
+    endif()
 
     add_library(omniZIOP4 SHARED ${OMNIZIOP4_SRC})
     target_link_libraries(omniZIOP4 PUBLIC omniORB4 omnithread Threads::Threads ZLIB::ZLIB)
     target_include_directories(omniZIOP4 PRIVATE ${ZLIB_INCLUDE_DIR}  .)
     target_compile_definitions(omniZIOP4 PRIVATE _OMNIORB_ZIOP_LIBRARY)
     target_compile_options(omniZIOP4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+    if (WIN32)
+        set_target_properties(omniZIOP4 PROPERTIES OUTPUT_NAME "omniZIOP4_rt")
+    endif()
 
 
     install(TARGETS omniZIOP4_static omniZIOP4
             EXPORT ${PROJECT_NAME}Targets
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+            ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})
 
 else()
     message(WARNING "Zlib not found, disable omniZIOP")

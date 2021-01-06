@@ -2,15 +2,15 @@ set(GEN_DIR ${PROJECT_BINARY_DIR}/generated/services/mklib/)
 set(IDL_DIR ${PROJECT_SOURCE_DIR}/idl/COS/)
 file(MAKE_DIRECTORY ${GEN_DIR})
 
-RUN_OMNIIDL(${IDL_DIR}/CosNotifyChannelAdmin.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyChannelAdmin.hh;CosNotifyChannelAdminSK.cc;CosNotifyChannelAdminDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosNotifyFilter.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyFilter.hh;CosNotifyFilterSK.cc;CosNotifyFilterDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosNotifyComm.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotifyComm.hh;CosNotifyCommSK.cc;CosNotifyCommDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosNotification.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosNotification.hh;CosNotificationSK.cc;CosNotificationDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosEventChannelAdmin.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosEventChannelAdmin.hh;CosEventChannelAdminSK.cc;CosEventChannelAdminDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosEventComm.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosEventComm.hh;CosEventCommSK.cc;CosEventCommDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosTime.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosTime.hh;CosTimeSK.cc;CosTimeDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/TimeBase.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "TimeBase.hh;TimeBaseSK.cc;TimeBaseDynSK.cc")
-RUN_OMNIIDL(${IDL_DIR}/CosLifeCycle.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug" "CosLifeCycle.hh;CosLifeCycleSK.cc;CosLifeCycleDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyChannelAdmin.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosNotifyChannelAdmin.hh;CosNotifyChannelAdminSK.cc;CosNotifyChannelAdminDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyFilter.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosNotifyFilter.hh;CosNotifyFilterSK.cc;CosNotifyFilterDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotifyComm.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosNotifyComm.hh;CosNotifyCommSK.cc;CosNotifyCommDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosNotification.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosNotification.hh;CosNotificationSK.cc;CosNotificationDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosEventChannelAdmin.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosEventChannelAdmin.hh;CosEventChannelAdminSK.cc;CosEventChannelAdminDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosEventComm.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosEventComm.hh;CosEventCommSK.cc;CosEventCommDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosTime.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosTime.hh;CosTimeSK.cc;CosTimeDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/TimeBase.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "TimeBase.hh;TimeBaseSK.cc;TimeBaseDynSK.cc")
+RUN_OMNIIDL(${IDL_DIR}/CosLifeCycle.idl ${GEN_DIR} ${PROJECT_SOURCE_DIR}/idl/COS "-Wba;-Wbdebug;-Wbuse_quotes" "CosLifeCycle.hh;CosLifeCycleSK.cc;CosLifeCycleDynSK.cc")
 
 
 set(COSDYNAMIC4_SRC
@@ -58,6 +58,9 @@ target_compile_definitions(COS4_static PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SU
 target_include_directories(COS4_static PRIVATE ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
 target_compile_options(COS4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4_static CosRunGenerator)
+if (WIN32)
+    set_target_properties(COS4_static PROPERTIES OUTPUT_NAME "COS4")
+endif()
 
 
 add_library(COS4 SHARED ${COS4_SRC})
@@ -66,6 +69,9 @@ target_compile_definitions(COS4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COS4 PRIVATE ${GEN_DIR}/ ${PROJECT_SOURCE_DIR}/include .)
 target_compile_options(COS4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
 add_dependencies(COS4 CosRunGenerator)
+if (WIN32)
+    set_target_properties(COS4 PROPERTIES OUTPUT_NAME "COS4_rt")
+endif()
 
 
 add_library(COSDynamic4_static STATIC ${COSDYNAMIC4_SRC})
@@ -73,6 +79,9 @@ target_link_libraries(COSDynamic4_static PUBLIC COS4 omniORB4_static omniDynamic
 target_compile_definitions(COSDynamic4_static PRIVATE _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT)
 target_include_directories(COSDynamic4_static PRIVATE ${GEN_DIR}/ .)
 target_compile_options(COSDynamic4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+if (WIN32)
+    set_target_properties(COSDynamic4_static PROPERTIES OUTPUT_NAME "COSDynamic4")
+endif()
 
 
 add_library(COSDynamic4 SHARED ${COSDYNAMIC4_SRC})
@@ -80,11 +89,19 @@ target_link_libraries(COSDynamic4 PUBLIC COS4 omniORB4 omniDynamic4 omnithread T
 target_compile_definitions(COSDynamic4 PRIVATE  _COS_LIBRARY ENABLE_CLIENT_IR_SUPPORT USE_core_stub_in_nt_dll)
 target_include_directories(COSDynamic4 PRIVATE ${GEN_DIR}/ .)
 target_compile_options(COSDynamic4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+if (WIN32)
+    set_target_properties(COSDynamic4 PROPERTIES OUTPUT_NAME "COSDynamic4_rt")
+endif()
 
 
+INSTALL(DIRECTORY ${GEN_DIR}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/COS
+        FILES_MATCHING PATTERN "*.h*")
+INSTALL(FILES COS_sysdep.h
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/COS)
 
 install(TARGETS COS4_static COS4 COSDynamic4_static COSDynamic4
         EXPORT ${PROJECT_NAME}Targets
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})

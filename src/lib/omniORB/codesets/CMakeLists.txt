@@ -32,16 +32,22 @@ add_library(omniCodeSets4_static STATIC ${OMNICODESETS4_SRC})
 target_link_libraries(omniCodeSets4_static PRIVATE omniORB4_static omnithread_static Threads::Threads)
 target_compile_definitions(omniCodeSets4_static PRIVATE USE_omniORB_logStream)
 target_compile_options(omniCodeSets4_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
+if (WIN32)
+    set_target_properties(omniCodeSets4_static PROPERTIES OUTPUT_NAME "omniCodeSets4")
+endif()
 
 
 add_library(omniCodeSets4 SHARED ${OMNICODESETS4_SRC})
 target_link_libraries(omniCodeSets4 PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(omniCodeSets4 PRIVATE USE_omniORB_logStream)
 target_compile_options(omniCodeSets4 PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS}  )
+if (WIN32)
+    set_target_properties(omniCodeSets4 PROPERTIES OUTPUT_NAME "omniCodeSets4_rt")
+endif()
 
 
 install(TARGETS omniCodeSets4_static omniCodeSets4
         EXPORT ${PROJECT_NAME}Targets
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})

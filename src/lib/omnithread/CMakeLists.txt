@@ -16,6 +16,9 @@ target_compile_definitions(omnithread_static PRIVATE ${OMNITHREAT_DEFS} ${OMNITH
 target_include_directories(omnithread_static PRIVATE . ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(omnithread_static PUBLIC Threads::Threads)
 target_compile_options(omnithread_static PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+if (WIN32)
+    set_target_properties(omnithread_static PROPERTIES OUTPUT_NAME "omnithread")
+endif()
 
 
 add_library(omnithread SHARED ${OMNITHREAD_SRC})
@@ -25,9 +28,12 @@ target_compile_definitions(omnithread PRIVATE ${OMNITHREAT_DEFS} ${OMNITHREAT_DE
 target_include_directories(omnithread PRIVATE . ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(omnithread PUBLIC Threads::Threads)
 target_compile_options(omnithread PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS})
+if (WIN32)
+    set_target_properties(omnithread PROPERTIES OUTPUT_NAME "omnithread_rt")
+endif()
 
 install(TARGETS omnithread_static omnithread
         EXPORT ${PROJECT_NAME}Targets
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})

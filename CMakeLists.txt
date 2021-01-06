@@ -44,6 +44,13 @@ include(codegen.cmake)
 include(platform_checks.cmake)
 include(package_config.cmake)
 
+if (WIN32)
+    set(OMNI_RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR}/x86_win32)
+    set(OMNI_ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR}/x86_win32)
+else ()
+    set(OMNI_RUNTIME_DESTINATION ${CMAKE_INSTALL_BINDIR})
+    set(OMNI_ARCHIVE_DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+endif()
 
 add_subdirectory(contrib)
 add_subdirectory(src)

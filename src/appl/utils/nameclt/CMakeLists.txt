@@ -5,3 +5,8 @@ target_link_libraries(nameclt PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(nameclt PRIVATE  )
 target_include_directories(nameclt PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(nameclt PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
+
+install(TARGETS nameclt
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})

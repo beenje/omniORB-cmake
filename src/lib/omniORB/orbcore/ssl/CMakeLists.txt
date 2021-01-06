@@ -48,9 +48,9 @@ if (OPENSSL_FOUND)
 
     install(TARGETS omnisslTP4_static omnisslTP4
             EXPORT ${PROJECT_NAME}Targets
-            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
             LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/static)
+            ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})
 else ()
     message(WARNING "OpenSSL not found, disable omnisslTP")
 endif ()

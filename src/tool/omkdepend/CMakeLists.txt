@@ -10,3 +10,8 @@ target_compile_definitions(omkdepend PRIVATE DEBUG)
 target_include_directories(omkdepend PRIVATE . ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(omkdepend PRIVATE -O )
 
+
+install(TARGETS omkdepend
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})

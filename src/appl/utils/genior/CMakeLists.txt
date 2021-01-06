@@ -5,3 +5,8 @@ target_link_libraries(genior PRIVATE omniORB4 omnithread Threads::Threads)
 target_compile_definitions(genior PRIVATE  )
 target_include_directories(genior PRIVATE ${PROJECT_BINARY_DIR}/generated/lib/omniORB ${PROJECT_SOURCE_DIR}/include)
 target_compile_options(genior PRIVATE ${COMPILE_FLAG_WNO_UNUSED} ${COMPILE_FLAG_FEXCEPTIONS} )
+
+install(TARGETS genior
+        RUNTIME DESTINATION ${OMNI_RUNTIME_DESTINATION}
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${OMNI_ARCHIVE_DESTINATION})
